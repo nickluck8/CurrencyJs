@@ -75,7 +75,7 @@ class DollarOOP extends CurrencyOOP {
     constructor(quantity, ratioWithProto, sign = '$') {
         super(quantity, ratioWithProto, sign);
         DollarOOP.counter++;
-        console.log(DollarOOP._counter)
+        console.log(DollarOOP.counter)
     }
 
     // static get counter() {
