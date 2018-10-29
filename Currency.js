@@ -45,77 +45,60 @@ console.log(total.isCurrencyType(Dollar));
 console.log(total.getCount());
 
 
-// class Currency {
-//
-//     constructor(quantity = 1, ratioWithProto = 1, correlationToGold = 0.5) {
-//         this._quantity = quantity;
-//         this._ratioWithProto = ratioWithProto;
-//         this._correlationToGold = correlationToGold;
-//     }
-//
-//     get quantity() {
-//         return this._quantity;
-//     quantity, ratiioWithProto
-//
-//     set quantity(value) {
-//         this._quantity = value;
-//     }
-//
-//     get ratioWithproto() {
-//         return this._ratioWithProto;
-//     }
-//
-//     set ratioWithproto(value) {
-//         this._ratioWithProto = value;
-//     }
-//
-//     get correlationToGold() {
-//         return this._correlationToGold;
-//     }
-//
-//     set correlationToGold(value) {
-//         this._correlationToGold = value;
-//     }
-//
-//     sum(currency) {
-//         //TODO create new object of type this
-//         return (this._quantity * this._ratioWithProto) + (currency._quantity * currency._ratioWithProto);
-//     }
-//
-//     isCurrencyType() {
-//         return this.isPrototypeOf(Currency);
-//     }
-// }
-//
-// class Hryvna extends Currency {
-//     constructor(quantiry) {
-//         super(quantiry, 0.65)
-//     }
-// }
-//
-//
-// class Dollar extends Currency {
-//     static counter = 0;
-//
-//     constructor(quantity, ratioWithProto) {
-//         super(quantity, ratioWithProto);
-//         Dollar.counter++;
-//     }
-//
-// }
-//
-// class Canadia extends Dollar {
-//     constructor(quantity) {
-//         super(quantity, 1.2)
-//     }
-// }
-//
-// let pocketMoney = new Dollar(5);
-// let pocketMoney1 = new Dollar(5);
-// let pocketMoney2 = new Dollar(5);
-// let pocketMoney3 = new Dollar(5);
-// console.log(pocketMoney.counter);
-// let stash = new Hryvna(200);
-// let total = pocketMoney.sum(stash);
-// // console.log(total.isCurrencyType(Dollar));
-// console.log(total);
+class CurrencyOOP {
+
+    constructor(quantity = 1, ratioWithProto = 1, sign = '$') {
+        this._quantity = quantity;
+        this._ratioWithProto = ratioWithProto;
+        this._sign = sign;
+    }
+
+    sum(currency) {
+        this.quantity = this.quantity * this.ratioWithProto + currency.quantity * currency.ratioWithProto;
+        return this;
+    }
+
+    isCurrencyType() {
+        return this instanceof Currency;
+    }
+}
+
+class HryvnaOOP extends CurrencyOOP {
+    constructor(quantiry) {
+        super(quantiry, 0.65, 'hrn')
+    }
+}
+
+
+class DollarOOP extends CurrencyOOP {
+
+    constructor(quantity, ratioWithProto, sign = '$') {
+        super(quantity, ratioWithProto, sign);
+        DollarOOP.counter++;
+        console.log(DollarOOP._counter)
+    }
+
+    // static get counter() {
+    //     DollarOOP._counter = (DollarOOP._counter || 0) + 1;
+    //     return DollarOOP._counter;
+    // }
+
+}
+
+DollarOOP.counter = 0; //TODO static var es6 ??????
+
+class CanadiaOOP extends DollarOOP {
+    constructor(quantity) {
+        super(quantity, 1.2, 'CAD')
+    }
+}
+
+let pocketMoney1 = new DollarOOP(5);
+let pocketMoney11 = new DollarOOP(5);
+let pocketMoney2 = new DollarOOP(5);
+let pocketMoney3 = new DollarOOP(5);
+// console.log(pocketMoney1.counter);
+let stash1 = new HryvnaOOP(200);
+let total1 = pocketMoney1.sum(stash);
+// console.log(total.isCurrencyType(Dollar));
+console.log(total);
